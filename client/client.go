@@ -1,11 +1,11 @@
 package main
 
 import (
-	"log"
+	"context"
+	"github.com/just1689/fun-with-grpc/proto"
 	"google.golang.org/grpc"
 	"io"
-	"github.com/just1689/fun-with-grpc/proto"
-	"context"
+	"log"
 )
 
 func main() {
@@ -15,7 +15,6 @@ func main() {
 		log.Fatalf("Connecting to grpc endpoint failed with err: %v", err)
 	}
 
-	// create stream
 	client := proto.NewCommClient(conn)
 	stream, err := client.Ping(context.Background())
 	if err != nil {
@@ -48,7 +47,6 @@ func main() {
 			if err != nil {
 				log.Fatalf("Failed to receive from server %v", err)
 			}
-
 			log.Printf("Recieved from the server: %s", resp.Val)
 		}
 	}()
@@ -60,7 +58,6 @@ func main() {
 		}
 		close(done)
 	}()
-
 	<-done
 
 }

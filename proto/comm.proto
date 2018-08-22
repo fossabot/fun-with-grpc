@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package proto;
+
+service Comm {
+    rpc Ping (stream Msg) returns (stream Msg) {}
+}
+
+message Msg {
+    string val = 1;
+}
+
+//protoc -I fun/ fun/fun.proto --go_out=plugins=grpc:fun
